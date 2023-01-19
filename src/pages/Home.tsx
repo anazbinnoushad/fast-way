@@ -51,10 +51,27 @@ const Home = () => {
         }
     }
 
+    const SortedProducts = (type: any) => {
+        switch (type) {
+            case "price-low-to-high":
+                return data.sort((first: any, second: any) => first?.price - second?.price);
+            case "price-high-to-low":
+                return data.sort((first: any, second: any) => second?.price - first?.price);
+            case "high-rated":
+                return data.sort((first: any, second: any) => second?.rating - first?.rating);
+            case "discount":
+                return data.sort((first: any, second: any) => second?.discountPercentage - first?.discountPercentage);
+            default:
+                return data
+        }
+    }
+
     const FilteredProducts = (value: any) => {
         let products
         if (searchParams?.get("brand")) {
             products = data?.filter((val: any) => val?.brand === searchParams?.get("brand"))
+        } else if (searchParams?.get("sortby")) {
+            products = SortedProducts(searchParams?.get("sortby"))
         } else {
             products = data?.filter((val: any) => val?.category == value?.title)
         }
@@ -76,7 +93,6 @@ const Home = () => {
                         ))}
                     </div>
                 </div>
-
             </div>
         </div>
     );

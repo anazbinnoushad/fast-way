@@ -49,10 +49,10 @@ type FilterItemProps = {
     item: any,
     setSearchParams: any,
     searchParams: any,
-    type: "category" | "brand"
+    type: "category" | "brand" | "sortby"
 }
 
-const FilterItem = ({ item, setSearchParams, searchParams, type }: FilterItemProps) => {
+export const FilterItem = ({ item, setSearchParams, searchParams, type }: FilterItemProps) => {
     const handleCheck = () => {
         if (searchParams?.get(type) === item?.title) {
             setSearchParams({})

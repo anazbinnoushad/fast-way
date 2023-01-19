@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux"
 import { AddtoCart } from "../redux/ClientActions";
 import { handleResponse } from "../utils/HandleResponse";
 import { toast, TypeOptions } from "react-toastify";
+import { StarIcon } from "@heroicons/react/24/solid";
 
 
 let item = {
@@ -17,7 +18,6 @@ let item = {
 const ProductCard = ({ data }: any) => {
     const dispatch = useDispatch()
     const handleAddToCart = () => {
-        console.log(`ProductCard,  : data`, data)
         if (data?.stock < 50) {
             handleResponse({ message: "hurry! only a few items left" }, () => dispatch(AddtoCart(data)), "warning")
         } else {
@@ -44,8 +44,12 @@ const ProductCard = ({ data }: any) => {
                     </div>
                 </div>
             </div>
-            <div>
+            <div className=" flex justify-between">
                 <FWButton text={"ADD TO CART"} onClick={() => handleAddToCart()} />
+                <div className="w-fit flex items-center gap-1 px-3 py-1 text-xs font-bold rounded-xl bg-yellow-50 text-yellow-500`">
+                    <a>{data?.rating}</a>
+                    <StarIcon className=" text-yellow-500 w-4" />
+                </div>
             </div>
         </div>
     );
