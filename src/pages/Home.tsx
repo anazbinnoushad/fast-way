@@ -51,7 +51,7 @@ const Home = () => {
                 <Navabar />
                 <div>
                     {GetCategories(data)?.map((value: any, index: number) => (
-                        <ProductList key={`CAT_${index}`} title={"Smart Phones"} data={data?.filter((val: any) => val?.category == value?.title)} />
+                        <ProductList key={`CAT_${index}`} title={value?.title} data={data?.filter((val: any) => val?.category == value?.title)} />
                     ))}
                 </div>
             </div>

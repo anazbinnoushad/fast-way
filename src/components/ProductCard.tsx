@@ -1,6 +1,9 @@
 import FWButton from "./FWComponents/FWButton";
 import { useDispatch } from "react-redux"
 import { AddtoCart } from "../redux/ClientActions";
+import { handleResponse } from "../utils/HandleResponse";
+import { toast, TypeOptions } from "react-toastify";
+
 
 let item = {
     discount_rate: "20",
@@ -15,11 +18,15 @@ const ProductCard = ({ data }: any) => {
     const dispatch = useDispatch()
     const handleAddToCart = () => {
         console.log(`ProductCard,  : data`, data)
-        dispatch(AddtoCart(data))
+        if (data?.stock < 50) {
+            handleResponse({ message: "hurry! only a few items left" }, () => dispatch(AddtoCart(data)), "warning")
+        } else {
+            handleResponse({ message: "Added to cart" }, () => dispatch(AddtoCart(data)), "success")
+        }
     }
     return (
         <div className="w-52 flex flex-col gap-3 relative">
-            <div className=" absolute -right-5 top-5 px-2 py-1 text-xs bg-red-500 text-white font-semibold rounded-3xl">{item?.discount_rate}% OFF</div>
+            <div className=" absolute -right-5 top-5 px-2 py-1 text-xs bg-red-500 text-white font-semibold rounded-3xl">{data?.discountPercentage?.toFixed(0)}% OFF</div>
             <div className=" w-[200px] aspect-square bg-secondary flex justify-center items-center rounded-3xl">
                 <div className=" relative p-10 overflow-clip">
                     <img src={data?.thumbnail} alt="product" />
@@ -32,8 +39,8 @@ const ProductCard = ({ data }: any) => {
                         <a>{data?.category}</a>
                     </div>
                     <div className=" flex items-center gap-1">
-                        {item?.discount_rate && (<a className=" text-xs text-slate-500 line-through">{data?.price?.toFixed(2)}</a>)}
-                        <a className=" text-base font-semibold">{(data?.price - (data?.price * (data?.discountPercentage / 100)))?.toFixed(2)}</a>
+                        ${item?.discount_rate && (<a className=" text-xs text-slate-500 line-through">{data?.price?.toFixed(1)}</a>)}
+                        <a className=" text-base font-semibold">${(data?.price - (data?.price * (data?.discountPercentage / 100)))?.toFixed(1)}</a>
                     </div>
                 </div>
             </div>
@@ -44,4 +51,4 @@ const ProductCard = ({ data }: any) => {
     );
 }
 
-export default ProductCard;
+export default ProductCard

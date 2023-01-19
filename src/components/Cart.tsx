@@ -18,6 +18,11 @@ const Cart = ({ onClose }: CartProps) => {
                     <XMarkIcon className=" text-black w-5" />
                 </div>
             </div>
+            {cart?.length == 0 && (
+                <div className=" w-full h-full flex items-center justify-center">
+                    <a>Your Cart is Empty</a>
+                </div>
+            )}
             <div className=" p-4 flex flex-col gap-2">
                 {cart?.map((item: any, idx: number) => (
                     <CartItem data={item} key={`CRTI_${idx}`} />
