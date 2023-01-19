@@ -12,9 +12,11 @@ const Navabar = () => {
                 <a className=" text-2xl text-blue-500">FAST WAY</a>
             </div>
             <div className=" cursor-pointer relative" onClick={() => setIsOpen(true)}>
-                <div className=" absolute left-3 bg-blue-400 flex items-center justify-center w-3 h-3 rounded-full">
-                    <a className=" text-white text-[8px]">{cart?.length}</a>
-                </div>
+                {cart?.length > 0 && (
+                    <div className=" absolute left-3 bg-blue-400 flex items-center justify-center w-3 h-3 rounded-full">
+                        <a className=" text-white text-[8px]">{cart?.length}</a>
+                    </div>
+                )}
                 <div className=" flex gap-2">
                     {/* <ShoppingCart /> */}
                     <ShoppingCartIcon className=" w-5" />

@@ -2,17 +2,14 @@ import { useEffect, useState } from "react";
 import Navabar from "../components/Navabar";
 import ProductList from "../components/ProductList";
 import axios from "axios"
-import { useSelector } from "react-redux"
+import Filterbar from "../components/Filterbar";
+import { useSearchParams } from "react-router-dom";
 
-const instance = axios.create({
-    baseURL: 'https://some-domain.com/api/',
-    timeout: 1000,
-    headers: { 'X-Custom-Header': 'foobar' }
-});
 
 const Home = () => {
     const [data, setData] = useState<any>()
     const [loading, setLoading] = useState<boolean>(true)
+    let [searchParams, setSearchParams] = useSearchParams();
 
 
     const GetAPI = () => {
@@ -40,20 +37,46 @@ const Home = () => {
         }
         return categories || []
     }
-    let cart = useSelector((state: any) => state?.Cart)
-    console.log(`Home,  : Data`, data)
-    console.log(`Home,  : cart`, cart)
+
+    const FilteredCategories = () => {
+        if (searchParams?.get("category")) {
+            return GetCategories(data)?.filter((val: any) => val?.title === searchParams?.get("category"))
+        }
+        else if (searchParams?.get("brand")) {
+            let filteredProducts = data?.filter((val: any) => val?.brand === searchParams?.get("brand"))
+            return GetCategories(filteredProducts)
+        }
+        else {
+            return GetCategories(data)
+        }
+    }
+
+    const FilteredProducts = (value: any) => {
+        let products
+        if (searchParams?.get("brand")) {
+            products = data?.filter((val: any) => val?.brand === searchParams?.get("brand"))
+        } else {
+            products = data?.filter((val: any) => val?.category == value?.title)
+        }
+        return products || []
+    }
 
 
     return (
         <div className=" flex justify-center">
             <div className=" max-w-[1280px] w-full">
                 <Navabar />
-                <div>
-                    {GetCategories(data)?.map((value: any, index: number) => (
-                        <ProductList key={`CAT_${index}`} title={value?.title} data={data?.filter((val: any) => val?.category == value?.title)} />
-                    ))}
+                <div className=" grid grid-cols-5 py-10 gap-5">
+                    <div className=" col-span-1">
+                        <Filterbar data={data} setSearchParams={setSearchParams} searchParams={searchParams} />
+                    </div>
+                    <div className=" col-span-4">
+                        {FilteredCategories()?.map((value: any, index: number) => (
+                            <ProductList key={`CAT_${index}`} title={value?.title} data={FilteredProducts(value)} />
+                        ))}
+                    </div>
                 </div>
+
             </div>
         </div>
     );
