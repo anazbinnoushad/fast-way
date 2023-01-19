@@ -1,7 +1,11 @@
+import Navabar from "../components/Navabar";
+
 const Home = () => {
     return (
-        <div>
-            <p className=" text-3xl text-blue-500">FAST WAY</p>
+        <div className=" flex justify-center">
+            <div className=" max-w-[1280px] w-full">
+                <Navabar />
+            </div>
         </div>
     );
 }
