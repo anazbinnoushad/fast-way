@@ -1,4 +1,6 @@
 import FWButton from "./FWComponents/FWButton";
+import { useDispatch } from "react-redux"
+import { AddtoCart } from "../redux/ClientActions";
 
 let item = {
     discount_rate: "20",
@@ -10,6 +12,11 @@ let item = {
 }
 
 const ProductCard = ({ data }: any) => {
+    const dispatch = useDispatch()
+    const handleAddToCart = () => {
+        console.log(`ProductCard,  : data`, data)
+        dispatch(AddtoCart(data))
+    }
     return (
         <div className="w-52 flex flex-col gap-3 relative">
             <div className=" absolute -right-5 top-5 px-2 py-1 text-xs bg-red-500 text-white font-semibold rounded-3xl">{item?.discount_rate}% OFF</div>
@@ -31,7 +38,7 @@ const ProductCard = ({ data }: any) => {
                 </div>
             </div>
             <div>
-                <FWButton text={"ADD TO CART"} />
+                <FWButton text={"ADD TO CART"} onClick={() => handleAddToCart()} />
             </div>
         </div>
     );

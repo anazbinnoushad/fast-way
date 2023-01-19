@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Navabar from "../components/Navabar";
 import ProductList from "../components/ProductList";
 import axios from "axios"
+import { useSelector } from "react-redux"
 
 const instance = axios.create({
     baseURL: 'https://some-domain.com/api/',
@@ -39,6 +40,9 @@ const Home = () => {
         }
         return categories || []
     }
+    let cart = useSelector((state: any) => state?.Cart)
+    console.log(`Home,  : Data`, data)
+    console.log(`Home,  : cart`, cart)
 
 
     return (
