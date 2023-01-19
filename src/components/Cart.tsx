@@ -8,6 +8,7 @@ type CartProps = {
 
 const Cart = ({ onClose }: CartProps) => {
     let cart = useSelector((state: any) => state?.Cart)
+
     return (
         <div className="text-black w-[400px] h-screen bg-white">
             <div className=" flex flex-row-reverse justify-between items-center p-4 border-b">

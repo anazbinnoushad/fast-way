@@ -1,4 +1,5 @@
-import FilterList, { FilterItem } from "./FilterList"
+import FilterItem from "./FilterItem";
+import FilterList from "./FilterList"
 
 const Filters = [
     { title: "Categories", type: "category" },

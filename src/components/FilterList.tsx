@@ -1,4 +1,5 @@
 import { useState } from "react"
+import FilterItem from "./FilterItem"
 type FilterListProps = {
     data: any,
     setSearchParams: any,
@@ -11,8 +12,8 @@ const FilterList = ({ data, setSearchParams, searchParams, type, title }: Filter
     const [show, setShow] = useState<boolean>(false)
 
     const GetFilters = (data: any) => {
-        let categories
-        let brands
+        let categories;
+        let brands;
         if (data?.length > 0) {
             categories = Object.values(data?.reduce((val: any, { category }: any) => {
                 val[category] = { title: category }
@@ -45,25 +46,25 @@ const FilterList = ({ data, setSearchParams, searchParams, type, title }: Filter
 
 export default FilterList;
 
-type FilterItemProps = {
-    item: any,
-    setSearchParams: any,
-    searchParams: any,
-    type: "category" | "brand" | "sortby"
-}
+// type FilterItemProps = {
+//     item: any,
+//     setSearchParams: any,
+//     searchParams: any,
+//     type: "category" | "brand" | "sortby"
+// }
 
-export const FilterItem = ({ item, setSearchParams, searchParams, type }: FilterItemProps) => {
-    const handleCheck = () => {
-        if (searchParams?.get(type) === item?.title) {
-            setSearchParams({})
-        } else {
-            setSearchParams({ [type]: item?.title })
-        }
-    }
-    return (
-        <div className=" p-1 flex gap-2 items-center cursor-pointer" onClick={() => handleCheck()}>
-            <input type="checkbox" checked={item?.title == searchParams?.get(type)} onChange={() => handleCheck()} />
-            <a className=" capitalize text-sm">{item?.title?.replaceAll("-", " ")}</a>
-        </div>
-    )
-}
+// export const FilterItem = ({ item, setSearchParams, searchParams, type }: FilterItemProps) => {
+//     const handleCheck = () => {
+//         if (searchParams?.get(type) === item?.title) {
+//             setSearchParams({})
+//         } else {
+//             setSearchParams({ [type]: item?.title })
+//         }
+//     }
+//     return (
+//         <div className=" p-1 flex gap-2 items-center cursor-pointer" onClick={() => handleCheck()}>
+//             <input type="checkbox" checked={item?.title == searchParams?.get(type)} onChange={() => handleCheck()} />
+//             <a className=" capitalize text-sm">{item?.title?.replaceAll("-", " ")}</a>
+//         </div>
+//     )
+// }

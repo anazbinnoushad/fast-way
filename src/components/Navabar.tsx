@@ -3,9 +3,11 @@ import { useState } from "react";
 import Cart from "./Cart";
 import FWSideView from "./FWComponents/FWSideView";
 import { useSelector } from "react-redux"
+
 const Navabar = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false)
     let cart = useSelector((state: any) => state?.Cart)
+
     return (
         <div className=" flex justify-between items-center py-4 border-b">
             <div>
@@ -18,7 +20,6 @@ const Navabar = () => {
                     </div>
                 )}
                 <div className=" flex gap-2">
-                    {/* <ShoppingCart /> */}
                     <ShoppingCartIcon className=" w-5" />
                     <a>CART</a>
                 </div>

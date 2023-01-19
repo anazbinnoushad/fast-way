@@ -2,18 +2,8 @@ import FWButton from "./FWComponents/FWButton";
 import { useDispatch } from "react-redux"
 import { AddtoCart } from "../redux/ClientActions";
 import { handleResponse } from "../utils/HandleResponse";
-import { toast, TypeOptions } from "react-toastify";
 import { StarIcon } from "@heroicons/react/24/solid";
 
-
-let item = {
-    discount_rate: "20",
-    image: "./Productimage.png",
-    name: "Perfume",
-    category: "lifestyle",
-    current_price: "300",
-    actual_price: "500"
-}
 
 const ProductCard = ({ data }: any) => {
     const dispatch = useDispatch()
@@ -39,7 +29,7 @@ const ProductCard = ({ data }: any) => {
                         <a>{data?.category}</a>
                     </div>
                     <div className=" flex items-center gap-1">
-                        ${item?.discount_rate && (<a className=" text-xs text-slate-500 line-through">{data?.price?.toFixed(1)}</a>)}
+                        ${data?.discountPercentage && (<a className=" text-xs text-slate-500 line-through">{data?.price?.toFixed(1)}</a>)}
                         <a className=" text-base font-semibold">${(data?.price - (data?.price * (data?.discountPercentage / 100)))?.toFixed(1)}</a>
                     </div>
                 </div>
